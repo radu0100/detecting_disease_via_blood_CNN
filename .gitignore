@@ -1,0 +1,18 @@
+# Python environment (each person creates their own)
+.venv/
+__pycache__/
+*.pyc
+
+# Datasets and image cache (~6.5 GB; download per README)
+data/
+
+# Training outputs: saved models and per-run predictions (~260 MB)
+runs/
+logs/
+*.pt
+
+# Office / OS clutter
+~$*
+.DS_Store
+Thumbs.db
+.vscode/

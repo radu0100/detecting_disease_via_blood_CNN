@@ -1,0 +1,12 @@
+# Install PyTorch first, matching your GPU (RTX 50xx needs CUDA 12.8+):
+#   pip install torch==2.11.0 torchvision==0.26.0 --index-url https://download.pytorch.org/whl/cu128
+# Then:
+#   pip install -r requirements.txt
+timm==1.0.31
+numpy==2.5.4
+pandas==3.1.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
+pillow==13.0.0
+pyarrow==26.0.1
+tqdm==4.70.1
