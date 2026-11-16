@@ -1,0 +1,43 @@
+{
+  "run": "pbc_resnet18_baseline_s0",
+  "variant": "baseline",
+  "args": {
+    "task": "pbc",
+    "model": "resnet18",
+    "seed": 0,
+    "size": 224,
+    "epochs": 50,
+    "patience": 10,
+    "bs": 64,
+    "lr": 0.0003,
+    "wd": 0.05,
+    "aug": "default",
+    "balance": "weighted",
+    "split": "patient",
+    "input": "rgb",
+    "person": "me",
+    "tag": ""
+  },
+  "classes": [
+    "basophil",
+    "eosinophil",
+    "erythroblast",
+    "ig",
+    "lymphocyte",
+    "monocyte",
+    "neutrophil",
+    "platelet"
+  ],
+  "test": {
+    "macro_f1": 0.9901291678543229,
+    "accuracy": 0.9886895475819033,
+    "epochs": 25,
+    "best_epoch": 15,
+    "train_time_min": 4.32
+  },
+  "n": {
+    "train": 11964,
+    "val": 2564,
+    "test": 2564
+  }
+}

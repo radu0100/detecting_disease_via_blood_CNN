@@ -1,0 +1,41 @@
+{
+  "run": "cnmc_resnet18_baseline_s1",
+  "variant": "baseline",
+  "args": {
+    "task": "cnmc",
+    "model": "resnet18",
+    "seed": 1,
+    "size": 224,
+    "epochs": 50,
+    "patience": 10,
+    "bs": 64,
+    "lr": 0.0003,
+    "wd": 0.05,
+    "aug": "default",
+    "balance": "weighted",
+    "split": "patient",
+    "input": "rgb",
+    "person": "me",
+    "tag": ""
+  },
+  "classes": [
+    "hem",
+    "all"
+  ],
+  "test": {
+    "macro_f1": 0.8065553936260896,
+    "accuracy": 0.8329779673063256,
+    "auroc": 0.8876753327972841,
+    "sensitivity": 0.9825783972125436,
+    "specificity": 0.5970695970695971,
+    "patient_acc": 0.7272727272727273,
+    "epochs": 25,
+    "best_epoch": 15,
+    "train_time_min": 2.73
+  },
+  "n": {
+    "train": 7553,
+    "val": 1351,
+    "test": 1407
+  }
+}

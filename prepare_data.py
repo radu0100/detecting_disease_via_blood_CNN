@@ -4,6 +4,8 @@ Usage:
     python prepare_data.py                 # both tasks, 224 px
     python prepare_data.py --sizes 128 224 384
 
+If data/raw/PBC or data/raw/C-NMC is empty, the public Hugging Face copy is downloaded first.
+
 Expected raw layout (anything nested deeper is found by recursive search):
     data/raw/PBC/...<class>/*.jpg          class folders: basophil, eosinophil, erythroblast,
                                            ig, lymphocyte, monocyte, neutrophil, platelet
@@ -37,6 +39,24 @@ CNMC_CLASSES = ["hem", "all"]  # index 1 = leukemic (ALL) = positive class
 
 def _valid(p: Path) -> bool:
     return not p.name.startswith("._") and "__MACOSX" not in p.parts
+
+
+# Public Hugging Face copies used when data/raw/<name> is empty.
+HF_SOURCES = {"PBC": "chehablab/PBC", "C-NMC": "dwb2023/cnmc-leukemia-2019"}
+
+
+def ensure_raw(name: str):
+    """Download a dataset from Hugging Face if its raw folder has no data yet (~0.3 GB PBC, ~1.1 GB C-NMC)."""
+    root = RAW / name
+    has_data = root.exists() and any(
+        p.suffix.lower() in (".parquet", ".jpg", ".jpeg", ".png", ".bmp")
+        for p in root.rglob("*") if ".git" not in p.parts)
+    if has_data:
+        return
+    from huggingface_hub import snapshot_download
+    print(f"  downloading {HF_SOURCES[name]} -> {root} ...", flush=True)
+    snapshot_download(repo_id=HF_SOURCES[name], repo_type="dataset", local_dir=root,
+                      allow_patterns=["data/*.parquet", "README.md"])
 
 
 # ---------------------------------------------------------------- PBC
@@ -266,6 +286,7 @@ def main():
     (DATA / "splits").mkdir(parents=True, exist_ok=True)
 
     for task in args.tasks:
+        ensure_raw("PBC" if task == "pbc" else "C-NMC")
         if task == "pbc":
             df, classes, col = scan_pbc(), PBC_CLASSES, "split"
         else:
