@@ -4,11 +4,13 @@ __pycache__/
 *.pyc
 
 # Raw datasets and resized image cache (~6.5 GB, over GitHub's 100 MB file limit).
-# prepare_data.py downloads the raw data and rebuilds the cache.
+# The folders are kept (via .gitkeep) so the layout is in the repo; their contents are not.
+# Each person clones the datasets from Hugging Face into data/raw/ (see README).
 # data/splits/ IS committed, so everyone uses the same train/val/test split.
-data/raw/C-NMC/cnmc-leukemia-2019
-data/raw/PBC/PBC
-data/cache/*.npy
+data/raw/*/*
+!data/raw/*/.gitkeep
+data/cache/*
+!data/cache/.gitkeep
 
 # Training outputs (runs/, logs/) ARE committed: 6 baseline models, ~45 MB each.
 

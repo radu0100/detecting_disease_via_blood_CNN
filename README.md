@@ -23,7 +23,24 @@ pip install -r requirements.txt
 On macOS/Linux, activate with `source .venv/bin/activate` instead.
 If PowerShell says running scripts is disabled, run `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` once, or use `cmd` instead.
 
-**2. Download and prepare the data** (one time, ~1.4 GB download, a few minutes)
+**2. Get the datasets** (one time, ~1.4 GB). Clone them from Hugging Face into the empty `data/raw/` folders (needs [Git LFS](https://git-lfs.com)):
+```bash
+git lfs install
+git clone https://huggingface.co/datasets/dwb2023/cnmc-leukemia-2019 data/raw/C-NMC/cnmc-leukemia-2019
+git clone https://huggingface.co/datasets/chehablab/PBC data/raw/PBC/PBC
+```
+The result should look like:
+```
+data/
+├── raw/
+│   ├── C-NMC/cnmc-leukemia-2019/data/*.parquet   (13 files)
+│   └── PBC/PBC/data/*.parquet                    (1 file)
+├── cache/        (filled by prepare_data.py)
+└── splits/       (in the repo)
+```
+If you skip the clone, `prepare_data.py` downloads the same data for you.
+
+**2b. Prepare the data** (one time, a few minutes)
 ```bash
 python prepare_data.py
 ```
